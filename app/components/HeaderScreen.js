@@ -66,28 +66,35 @@
 
 // export default HeaderScreen;
 
-
-
-
-
-
-
 // HeaderScreen.js
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { useCart } from '../context/CartContext'; // Adjust the path
-import { useNavigation } from '@react-navigation/native';
-import { Colors, FontSizes, FontFamily, ComponentStyles } from '../components/Theme'
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {useCart} from '../context/CartContext'; // Adjust the path
+import {useNavigation} from '@react-navigation/native';
+import {
+  Colors,
+  FontSizes,
+  FontFamily,
+  ComponentStyles,
+} from '../components/Theme';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const HeaderScreen = () => {
-  const { cart } = useCart(); // Access the cart from context
+  const {cart} = useCart(); // Access the cart from context
   const navigation = useNavigation(); // Hook to access navigation
 
   return (
     <View style={styles.header}>
-      <Text style={styles.logo}>R & M</Text>
-      <TouchableOpacity style={styles.cartContainer} onPress={() => navigation.navigate('CartScreen')}>
-        <Text style={styles.icon}>Cart</Text>
+      <Text style={styles.logo}>RM Ayurved</Text>
+      <TouchableOpacity
+        style={styles.cartContainer}
+        onPress={() => navigation.navigate('CartScreen')}>
+        <MaterialIcons
+          name="shopping-cart"
+          size={20}
+          color="#333"
+          style={styles.icon}
+        />
         <View style={styles.badge}>
           <Text style={styles.badgeText}>{cart.length}</Text>
         </View>
@@ -102,12 +109,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 10,
-    backgroundColor: Colors.accent
+    backgroundColor: Colors.accent,
   },
   logo: {
     fontSize: FontSizes.large,
     fontWeight: 'bold',
-    color:Colors.text
+    color: Colors.text,
   },
   cartContainer: {
     position: 'relative',
@@ -115,7 +122,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   icon: {
-    fontSize: FontSizes.medium,
+    fontSize: FontSizes.large,
     marginRight: 5,
   },
   badge: {
