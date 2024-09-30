@@ -2,96 +2,21 @@ import React from 'react';
 import {
   View,
   Text,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
   ScrollView,
   FlatList,
+  TouchableOpacity,
+  StyleSheet,
   Linking,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
+import SmallCard from '../productCards/SmallCard';
 import {
   Colors,
   FontSizes,
   FontFamily,
   ComponentStyles,
 } from '../components/Theme';
-
-const products = [
-  {
-    id: 1,
-    name: 'Stage 1 Hairloss Kit for Genetics',
-    price: '₹949',
-    originalPrice: '₹1398',
-    discount: '32% off',
-    rating: 4.5,
-    reviews: 475,
-    images: [
-      'https://5.imimg.com/data5/SELLER/Default/2023/8/335738156/IV/OX/AS/19172632/fever-ayurvedic-medicine-500x500.jpeg',
-    ],
-  },
-  {
-    id: 2,
-    name: 'Stage 2 Hair Regrowth Kit',
-    price: '₹899',
-    originalPrice: '₹1198',
-    discount: '24% off',
-    rating: 4.3,
-    reviews: 913,
-    images: [
-      'https://5.imimg.com/data5/WV/IH/GLADMIN-65909823/chandra-prabha-batti-250x250.jpg',
-    ],
-  },
-  {
-    id: 3,
-    name: 'Stage 1 Hairloss Kit for Genetics',
-    price: '₹949',
-    originalPrice: '₹1398',
-    discount: '32% off',
-    rating: 4.5,
-    reviews: 475,
-    images: [
-      'https://5.imimg.com/data5/SELLER/Default/2023/8/335738156/IV/OX/AS/19172632/fever-ayurvedic-medicine-500x500.jpeg',
-    ],
-  },
-  {
-    id: 4,
-    name: 'Stage 2 Hair Regrowth Kit',
-    price: '₹899',
-    originalPrice: '₹1198',
-    discount: '24% off',
-    rating: 4.3,
-    reviews: 913,
-    images: [
-      'https://5.imimg.com/data5/WV/IH/GLADMIN-65909823/chandra-prabha-batti-250x250.jpg',
-    ],
-  },
-  {
-    id: 5,
-    name: 'Stage 1 Hairloss Kit for Genetics',
-    price: '₹949',
-    originalPrice: '₹1398',
-    discount: '32% off',
-    rating: 4.5,
-    reviews: 475,
-    images: [
-      'https://5.imimg.com/data5/SELLER/Default/2023/8/335738156/IV/OX/AS/19172632/fever-ayurvedic-medicine-500x500.jpeg',
-    ],
-  },
-  {
-    id: 6,
-    name: 'Stage 2 Hair Regrowth Kit',
-    price: '₹899',
-    originalPrice: '₹1198',
-    discount: '24% off',
-    rating: 4.3,
-    reviews: 913,
-    images: [
-      'https://5.imimg.com/data5/WV/IH/GLADMIN-65909823/chandra-prabha-batti-250x250.jpg',
-    ],
-  },
-];
+import {productData} from './FakeProductData';
 
 const categories = [
   {name: 'All', url: 'https://example.com/all'},
@@ -101,43 +26,33 @@ const categories = [
   {name: 'All', url: 'https://example.com/all'},
   {name: 'Hair Fall', url: 'https://example.com/hair-fall'},
   {name: 'Dandruff', url: 'https://example.com/dandruff'},
-  {name: 'Beard', url: 'https://example.com/beard'},
 ];
 
-const ProductCard = ({product}) => {
+const ProductList = () => {
   const navigation = useNavigation();
 
-  return (
-    <TouchableOpacity
-      style={styles.productCard}
-      onPress={() => navigation.navigate('ProductDetail', {product})}>
-      <Image
-        source={{uri: product.images[0]}}
-        style={styles.productImage}
-        onError={() => console.error('Image failed to load')}
-      />
-      <View style={styles.productInfo}>
-        <Text style={styles.productName}>{product.name}</Text>
-        <View style={styles.priceContainer}>
-          <Text style={styles.productPrice}>{product.price}</Text>
-          <Text style={styles.originalPrice}>{product.originalPrice}</Text>
-          <Text style={styles.discountPercent}>{product.discount}</Text>
-        </View>
-        <View style={styles.ratingContainer}>
-          <Icon name="star" size={16} color={Colors.starColor} />
-          <Text style={styles.ratingText}>{product.rating}</Text>
-          <Text style={styles.reviewText}>| {product.reviews} Reviews</Text>
-        </View>
-      </View>
-      <TouchableOpacity style={styles.addButton}>
-        <Text style={styles.addButtonText}>Add to Cart</Text>
-      </TouchableOpacity>
-    </TouchableOpacity>
-  );
-};
+  const handleCardPress = item => {
+    navigation.navigate('ProductDetail', {product: item});
+  };
 
-const ProductList = () => {
-  const renderProduct = ({item}) => <ProductCard product={item} />;
+  const renderProduct = ({item}) => {
+    const discountPercent = Math.round(
+      ((item.originalPrice - item.price) / item.originalPrice) * 100,
+    );
+
+    return (
+      <SmallCard
+        imageUrl={item.images[0]}
+        title={item.name}
+        price={`₹${item.price}`}
+        originalPrice={`₹${item.originalPrice}`}
+        discount={`${discountPercent}% OFF`}
+        rating={item.rating}
+        reviews={item.reviews}
+        onPress={() => handleCardPress(item)}
+      />
+    );
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -163,7 +78,7 @@ const ProductList = () => {
 
       {/* Product List */}
       <FlatList
-        data={products}
+        data={productData}
         renderItem={renderProduct}
         keyExtractor={item => item.id.toString()}
         numColumns={2}
@@ -187,27 +102,21 @@ const styles = StyleSheet.create({
   categoryButton: {
     paddingHorizontal: 16,
     paddingVertical: 10,
-    backgroundColor: Colors.lightGray,
-    borderRadius: 20, // Rounded corners for category button
+    backgroundColor: Colors.accent,
+    borderRadius: 20,
     marginHorizontal: 5,
-    alignItems: 'center', // Center the text inside the category button
-    justifyContent: 'center', // Center vertically
-    shadowColor: '#000',
-
-    elevation: 2, // Adds shadow to the category cards for depth effect
+    alignItems: 'center',
+    justifyContent: 'center',
+    // shadowColor: '#000',
+    elevation: 1,
   },
   categoryText: {
     fontFamily: FontFamily.primary,
     fontSize: FontSizes.small,
     fontWeight: 'bold',
-    color: Colors.darkGray,
-    textAlign: 'center', // Center the text horizontally
+    color: Colors.text,
+    textAlign: 'center',
   },
-  // subTitle: {
-  //   fontSize: FontSizes.small,
-  //   color: Colors.secondary,
-  //   marginBottom: 15,
-  // },
 });
 
 export default ProductList;

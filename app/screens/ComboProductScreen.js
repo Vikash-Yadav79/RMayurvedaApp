@@ -13,14 +13,7 @@ import {useNavigation} from '@react-navigation/native';
 
 // Get screen width to make the product card responsive
 
-import {
-  Colors,
-  FontSizes,
-  FontFamily,
-  ComponentStyles,
-  screenWidth,
-  ComboCommonStyles,
-} from '../components/Theme';
+import {Colors, screenWidth, ComboCommonStyles} from '../components/Theme';
 
 const products = [
   {
@@ -212,6 +205,9 @@ const ProductCard = ({product, onPress}) => (
       <Text
         style={styles.productReviews}>{` (${product.reviews} Reviews)`}</Text>
     </View>
+    <TouchableOpacity style={styles.addToCartButton}>
+      <Text style={styles.addButtonText}>Add to Cart</Text>
+    </TouchableOpacity>
   </TouchableOpacity>
 );
 
@@ -258,6 +254,10 @@ const ComboProductScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  addButtonText: {
+    color: Colors.text,
+    fontWeight: 'bold',
+  },
   ...ComboCommonStyles,
 });
 

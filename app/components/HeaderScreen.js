@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.accent,
   },
   logo: {
-    fontSize: FontSizes.large,
+    fontSize: FontSizes.medium,
     fontWeight: 'bold',
     color: Colors.text,
   },

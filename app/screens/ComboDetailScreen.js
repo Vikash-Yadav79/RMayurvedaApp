@@ -36,7 +36,7 @@ const ComboDetailScreen = ({route, navigation}) => {
           key={subItem.id}
           style={styles.productCard}
           onPress={() =>
-            navigation.navigate('ProductListDetails', {product: subItem})
+            navigation.navigate('ProductDetail', {product: subItem})
           }>
           <Image source={{uri: subItem.image}} style={styles.productImage} />
           <Text style={styles.productName}>{subItem.name}</Text>
@@ -87,8 +87,8 @@ const ComboDetailScreen = ({route, navigation}) => {
         </Text>
 
         {/* Add to Cart Button */}
-        <TouchableOpacity style={styles.addToCartButton}>
-          <Text style={styles.addToCartText}>Add to Cart</Text>
+        <TouchableOpacity style={styles.addButton}>
+          <Text style={styles.addButtonText}>Add to Cart</Text>
         </TouchableOpacity>
       </View>
 
@@ -156,11 +156,18 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     marginBottom: 20,
   },
-  addToCartButton: ComponentStyles.addButton,
-  addToCartText: ComponentStyles.addButtonText,
-  discount: ComponentStyles.discountPercent,
-  reviews: ComponentStyles.reviewText,
-  rating: ComponentStyles.rating,
+  addButton: {
+    marginTop: 10,
+    backgroundColor: Colors.accent,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  addButtonText: {
+    color: Colors.text,
+    fontWeight: 'bold',
+  },
 });
 
 export default ComboDetailScreen;

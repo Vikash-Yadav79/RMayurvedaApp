@@ -18,7 +18,7 @@ const FooterScreen = () => {
       <TouchableOpacity
         onPress={() => navigation.navigate('Dashboard')}
         style={styles.navButton}>
-        <Ionicons name="home-outline" size={22} color={Colors.primary} />
+        <Ionicons name="home-outline" size={22} color={Colors.text} />
         <Text style={styles.navText}>Home</Text>
       </TouchableOpacity>
 
@@ -36,7 +36,7 @@ const FooterScreen = () => {
       <TouchableOpacity
         onPress={() => navigation.navigate('Product')}
         style={styles.navButton}>
-        <Ionicons name="bag-handle-outline" size={22} color={Colors.primary} />
+        <Ionicons name="bag-handle-outline" size={22} color={Colors.text} />
         <Text style={styles.navText}>Shop</Text>
       </TouchableOpacity>
 
@@ -44,7 +44,7 @@ const FooterScreen = () => {
       <TouchableOpacity
         onPress={() => navigation.navigate('Product')}
         style={styles.navButton}>
-        <Ionicons name="bag-handle-outline" size={22} color={Colors.primary} />
+        <Ionicons name="bag-handle-outline" size={22} color={Colors.text} />
         <Text style={styles.navText}>Profile</Text>
       </TouchableOpacity>
     </View>
@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
   },
   navText: {
     fontSize: 12,
-    color: '#555',
-    marginTop: 4,
+    color: Colors.text,
+    marginTop: 10,
     textAlign: 'center',
     fontFamily: FontFamily.regular,
   },
