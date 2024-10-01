@@ -85,6 +85,7 @@ export const productData = [
     reviews: 475,
     images: [
       'https://5.imimg.com/data5/SELLER/Default/2023/8/335738156/IV/OX/AS/19172632/fever-ayurvedic-medicine-500x500.jpeg',
+      'https://5.imimg.com/data5/SELLER/Default/2023/8/335738156/IV/OX/AS/19172632/fever-ayurvedic-medicine-500x500.jpeg',
     ],
   },
   {
@@ -147,4 +148,194 @@ export const productData = [
       'https://5.imimg.com/data5/WV/IH/GLADMIN-65909823/chandra-prabha-batti-250x250.jpg',
     ],
   },
+];
+
+export const ComboProductData = [
+  {
+    id: '1',
+    name: 'Biotin Hair Gummies (30N) No Sugar',
+    price: '₹499',
+    originalPrice: '₹599',
+    discount: '16',
+    rating: 4.5,
+    images: [
+      'https://5.imimg.com/data5/UN/EY/JC/SELLER-8711974/dabur-10ml-and-30ml-bottle-pudin-hara-active-ayurvedic-medicine.jpg',
+    ],
+    reviews: 2488,
+    medicine: [
+      {
+        id: '5',
+        name: 'Anti Hair Fall Shampoo (200ml)',
+        price: '₹399',
+        originalPrice: '₹599',
+        discount: '16',
+        rating: 4.5,
+        images: [
+          'https://5.imimg.com/data5/UN/EY/JC/SELLER-8711974/dabur-10ml-and-30ml-bottle-pudin-hara-active-ayurvedic-medicine.jpg',
+        ],
+        reviews: 786,
+      },
+      {
+        id: '6',
+        name: 'Anti Hair Fall Shampoo (200ml)',
+        price: '₹399',
+        originalPrice: '₹599',
+        discount: '16',
+        rating: 4.5,
+        images: [
+          'https://5.imimg.com/data5/UN/EY/JC/SELLER-8711974/dabur-10ml-and-30ml-bottle-pudin-hara-active-ayurvedic-medicine.jpg',
+        ],
+        reviews: 786,
+      },
+      {
+        id: '7',
+        name: 'Vitamin C Serum',
+        price: '₹399',
+        originalPrice: '₹599',
+        discount: '16',
+        rating: 4.5,
+        images: [
+          'https://upakarma.com/wp-content/uploads/2024/03/SR-30g-Afgani-Kesar-1g.webp',
+        ],
+        reviews: 500,
+      },
+      {
+        id: '8',
+        name: 'Stage 2 Hair Regrowth Kit',
+        price: '₹899',
+        originalPrice: '₹599',
+        discount: '16',
+        rating: 4.5,
+        images: [
+          'https://5.imimg.com/data5/SELLER/Default/2023/2/LG/ZX/HR/1238425/bipolar-disorder-healer-kit-500x500.jpg',
+        ],
+        reviews: 912,
+      },
+    ],
+  },
+  {
+    id: '2',
+    name: 'Anti Hair Fall Shampoo (200ml)',
+    price: '₹399',
+    originalPrice: '₹499',
+    discount: '20',
+    rating: 4.2,
+    images: [
+      'https://5.imimg.com/data5/UN/EY/JC/SELLER-8711974/dabur-10ml-and-30ml-bottle-pudin-hara-active-ayurvedic-medicine.jpg',
+    ],
+    reviews: 786,
+    medicine: [
+      {
+        id: '5',
+        name: 'Anti Hair Fall Shampoo (200ml)',
+        price: '₹399',
+        originalPrice: '₹599',
+        discount: '16',
+        rating: 4.5,
+        images: [
+          'https://5.imimg.com/data5/UN/EY/JC/SELLER-8711974/dabur-10ml-and-30ml-bottle-pudin-hara-active-ayurvedic-medicine.jpg',
+        ],
+        reviews: 786,
+      },
+      {
+        id: '6',
+        name: 'Anti Hair Fall Shampoo (200ml)',
+        price: '₹399',
+        originalPrice: '₹599',
+        discount: '16',
+        rating: 4.5,
+        images: [
+          'https://5.imimg.com/data5/UN/EY/JC/SELLER-8711974/dabur-10ml-and-30ml-bottle-pudin-hara-active-ayurvedic-medicine.jpg',
+        ],
+        reviews: 786,
+      },
+      {
+        id: '7',
+        name: 'Vitamin C Serum',
+        price: '₹399',
+        originalPrice: '₹599',
+        discount: '16',
+        rating: 4.5,
+        images: [
+          'https://upakarma.com/wp-content/uploads/2024/03/SR-30g-Afgani-Kesar-1g.webp',
+        ],
+        reviews: 500,
+      },
+      {
+        id: '8',
+        name: 'Stage 2 Hair Regrowth Kit',
+        price: '₹899',
+        originalPrice: '₹599',
+        discount: '16',
+        rating: 4.5,
+        images: [
+          'https://5.imimg.com/data5/SELLER/Default/2023/2/LG/ZX/HR/1238425/bipolar-disorder-healer-kit-500x500.jpg',
+        ],
+        reviews: 912,
+      },
+    ],
+  },
+  {
+    id: '3',
+    name: 'Stage 2 Hair Regrowth Kit',
+    price: '₹899',
+    originalPrice: '₹999',
+    discount: '10',
+    rating: 4.8,
+    images: [
+      'https://5.imimg.com/data5/UN/EY/JC/SELLER-8711974/dabur-10ml-and-30ml-bottle-pudin-hara-active-ayurvedic-medicine.jpg',
+    ],
+    reviews: 912,
+    medicine: [
+      {
+        id: '5',
+        name: 'Anti Hair Fall Shampoo (200ml)',
+        price: '₹399',
+        originalPrice: '₹599',
+        discount: '16',
+        rating: 4.5,
+        images: [
+          'https://5.imimg.com/data5/UN/EY/JC/SELLER-8711974/dabur-10ml-and-30ml-bottle-pudin-hara-active-ayurvedic-medicine.jpg',
+        ],
+        reviews: 786,
+      },
+      {
+        id: '6',
+        name: 'Anti Hair Fall Shampoo (200ml)',
+        price: '₹399',
+        originalPrice: '₹599',
+        discount: '16',
+        rating: 4.5,
+        images: [
+          'https://5.imimg.com/data5/UN/EY/JC/SELLER-8711974/dabur-10ml-and-30ml-bottle-pudin-hara-active-ayurvedic-medicine.jpg',
+        ],
+        reviews: 786,
+      },
+      {
+        id: '7',
+        name: 'Vitamin C Serum',
+        price: '₹399',
+        originalPrice: '₹599',
+        discount: '16',
+        rating: 4.5,
+        images: [
+          'https://upakarma.com/wp-content/uploads/2024/03/SR-30g-Afgani-Kesar-1g.webp',
+        ],
+        reviews: 500,
+      },
+      {
+        id: '8',
+        name: 'Stage 2 Hair Regrowth Kit',
+        price: '₹899',
+        originalPrice: '₹599',
+        discount: '16',
+        rating: 4.5,
+        images: [
+          'https://5.imimg.com/data5/SELLER/Default/2023/2/LG/ZX/HR/1238425/bipolar-disorder-healer-kit-500x500.jpg',
+        ],
+        reviews: 912,
+      },
+    ],
+  },
+  // Add more products as needed...
 ];

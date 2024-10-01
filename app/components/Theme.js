@@ -42,6 +42,7 @@ const FontFamily = {
 const ComponentStyles = {
   container: {
     marginVertical: 10,
+    backgroundColor: '#ffffff',
   },
   header: {
     flexDirection: 'row',

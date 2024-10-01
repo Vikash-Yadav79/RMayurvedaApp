@@ -296,10 +296,11 @@ const MedicineScreen = () => {
   const navigation = useNavigation();
 
   const handleCardPress = item => {
-    navigation.navigate('ProductDetail', {product: item});
+    navigation.navigate('ProductDetail', {product: item, single: true});
   };
 
   const renderProduct = ({item}) => {
+    console.log('renderProduct', item);
     const discountPercent = Math.round(
       ((item.originalPrice - item.price) / item.originalPrice) * 100,
     );

@@ -175,7 +175,7 @@ import HeaderScreen from '../components/HeaderScreen';
 import FooterScreen from '../components/FooterScreen';
 import ComboProductScreen from './ComboProductScreen';
 import {ComponentStyles} from '../components/Theme';
-
+import {ComboProductData} from '../product/FakeProductData';
 // Get screen width to make the banner responsive
 const screenWidth = Dimensions.get('window').width;
 

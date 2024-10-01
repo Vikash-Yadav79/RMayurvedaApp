@@ -14,6 +14,9 @@ import ProductDetailScreen from '../product/ProductDetailScreen';
 import ComboDetailScreen from '../screens/ComboDetailScreen';
 import BestSellerRelatedProduct from '../screens/BestSellerRelatedProduct';
 import ComboProductScreen from '../screens/ComboProductScreen';
+import ProfileScreen from '../ProfileSection/ProfileScreen';
+import UserDetailsScreen from '../ProfileSection/profiledetailsScreen/UserDetailsScreen';
+import AddressScreen from '../ProfileSection/profiledetailsScreen/AddressScreen';
 
 const Stack = createStackNavigator();
 
@@ -83,6 +86,21 @@ const AppNavigator = () => {
       <Stack.Screen
         name="ComboProductScreen"
         component={ComboProductScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="UserDetails"
+        component={UserDetailsScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Address"
+        component={AddressScreen}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

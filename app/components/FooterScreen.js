@@ -42,7 +42,7 @@ const FooterScreen = () => {
 
       {/* profile Icon */}
       <TouchableOpacity
-        onPress={() => navigation.navigate('Product')}
+        onPress={() => navigation.navigate('Profile')}
         style={styles.navButton}>
         <Ionicons name="bag-handle-outline" size={22} color={Colors.text} />
         <Text style={styles.navText}>Profile</Text>

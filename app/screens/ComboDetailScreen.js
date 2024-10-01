@@ -38,7 +38,10 @@ const ComboDetailScreen = ({route, navigation}) => {
           onPress={() =>
             navigation.navigate('ProductDetail', {product: subItem})
           }>
-          <Image source={{uri: subItem.image}} style={styles.productImage} />
+          <Image
+            source={{uri: subItem.images[0]}}
+            style={styles.productImage}
+          />
           <Text style={styles.productName}>{subItem.name}</Text>
           <View style={styles.priceRow}>
             <Text style={styles.productPrice}>{subItem.price}</Text>
@@ -57,7 +60,10 @@ const ComboDetailScreen = ({route, navigation}) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {/* Product Image */}
-      <Image source={{uri: product.image}} style={styles.productImageLarge} />
+      <Image
+        source={{uri: product.images[0]}}
+        style={styles.productImageLarge}
+      />
 
       {/* Product Details Section */}
       <View style={styles.productDetailContainer}>

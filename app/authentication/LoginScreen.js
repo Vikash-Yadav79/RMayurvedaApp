@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -9,7 +9,15 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient'; // For gradient background
 import Icon from 'react-native-vector-icons/Ionicons'; // For icons
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
+import {
+  Colors,
+  FontSizes,
+  FontFamily,
+  ComponentStyles,
+  ComboCommonStyles,
+} from '../components/Theme';
+import {CommonButton} from '../common/CommonButton';
 
 const LoginScreen = () => {
   const [mobileNumber, setMobileNumber] = useState('');
@@ -21,7 +29,7 @@ const LoginScreen = () => {
   const handleLogin = () => {
     navigation.navigate('OTPScreen');
   };
-  
+
   // const handleGuestLogin = () => {
   //   navigation.navigate('ForgotPassword');
   // };
@@ -34,18 +42,26 @@ const LoginScreen = () => {
       <LinearGradient
         colors={['#F6C850', '#F2994A']}
         style={styles.topContainer}
-        start={{ x: 0.0, y: 0.0 }}
-        end={{ x: 1.0, y: 1.0 }}
-      >
-        <Text style={styles.welcomeText}>Welcome to R&M Ayurveda</Text>
-        <Text style={styles.subtitle}>Please sign in to continue</Text>
+        start={{x: 0.0, y: 0.0}}
+        end={{x: 1.0, y: 1.0}}>
+        <Text style={styles.welcomeText}>
+          {CommonButton.WelcometoRMAyurveda}
+        </Text>
+        <Text style={styles.subtitle}>
+          {CommonButton.Pleasesignintocontinue}
+        </Text>
       </LinearGradient>
 
       {/* Bottom white section */}
       <View style={styles.bottomContainer}>
         {/* Mobile Number Input */}
         <View style={styles.inputContainer}>
-          <Icon name="call-outline" size={20} color="#ccc" style={styles.icon} />
+          <Icon
+            name="call-outline"
+            size={20}
+            color="#ccc"
+            style={styles.icon}
+          />
           <TextInput
             style={styles.input}
             placeholder="Mobile Number"
@@ -82,12 +98,12 @@ const LoginScreen = () => {
 
         {/* Login Button */}
         <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-          <Text style={styles.loginButtonText}>Login</Text>
+          <Text style={styles.loginButtonText}>{CommonButton.Login}</Text>
         </TouchableOpacity>
 
         {/* Sign Up */}
         <View style={styles.signupContainer}>
-          <Text style={styles.signupText}>Login as a Guest? </Text>
+          <Text style={styles.signupText}>{CommonButton.LoginasaGuest}</Text>
           <TouchableOpacity onPress={() => navigation.navigate('Dashboard')}>
             <Text style={styles.signupLink}>Click Here</Text>
           </TouchableOpacity>
@@ -112,12 +128,12 @@ const styles = StyleSheet.create({
   welcomeText: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#fff',
+    color: Colors.text,
     marginBottom: 10,
   },
   subtitle: {
     fontSize: 16,
-    color: '#fff',
+    color: Colors.text,
     marginBottom: 30,
   },
   bottomContainer: {
@@ -142,7 +158,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    color: '#000',
+    color: Colors.text,
   },
   eyeIcon: {
     justifyContent: 'center',
@@ -159,7 +175,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   loginButtonText: {
-    color: '#fff',
+    color: Colors.text,
     fontWeight: 'bold',
     fontSize: 16,
   },

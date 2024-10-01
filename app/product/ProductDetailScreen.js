@@ -205,10 +205,11 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import {Colors, ComboCommonStyles} from '../components/Theme';
+import {Colors, ComboCommonStyles, ComponentStyles} from '../components/Theme';
 
 const ProductDetailScreen = ({route}) => {
   const {product} = route.params;
+  console.log('product', product);
 
   return (
     <ScrollView style={styles.container}>
@@ -321,6 +322,7 @@ const ProductDetailScreen = ({route}) => {
 };
 
 const styles = StyleSheet.create({
+  ...ComponentStyles,
   container: {
     flex: 1,
     padding: 16,
@@ -355,16 +357,16 @@ const styles = StyleSheet.create({
     color: '#7f8c8d',
     marginLeft: 5,
   },
-  discount: {
-    fontSize: 14,
-    color: 'red',
-    marginLeft: -50,
-  },
-  ratingContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
+  // discount: {
+  //   fontSize: 14,
+  //   color: 'red',
+  //   marginLeft: -50,
+  // },
+  // ratingContainer: {
+  //   flexDirection: 'row',
+  //   alignItems: 'center',
+  //   marginBottom: 10,
+  // },
   starSymbol: {
     fontSize: 16,
     color: '#FFD700',
@@ -377,17 +379,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginLeft: 5,
     color: '#7f8c8d',
-  },
-  addToCartButton: {
-    backgroundColor: '#FEDB71',
-    padding: 12,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  addButtonText: {
-    color: Colors.text,
-    fontWeight: 'bold',
   },
   sectionTitle: {
     fontSize: 16,
