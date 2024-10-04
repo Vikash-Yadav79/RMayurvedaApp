@@ -32,18 +32,18 @@ const UserDetails = () => {
       return;
     }
 
-    navigation.navigate('Profile', {
-      userDetails: {
-        fullName,
-        firstNumber,
-        secondNumber,
-        whatsappNumber,
-        pincode,
-        gender,
-        city,
-        address,
-      },
-    });
+    // navigation.navigate('Profile', {
+    //   userDetails: {
+    //     fullName,
+    //     firstNumber,
+    //     secondNumber,
+    //     whatsappNumber,
+    //     pincode,
+    //     gender,
+    //     city,
+    //     address,
+    //   },
+    // });
   };
 
   return (

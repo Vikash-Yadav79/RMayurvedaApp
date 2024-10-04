@@ -1,124 +1,160 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   View,
   Text,
-  FlatList,
-  Button,
-  TextInput,
-  Modal,
-  StyleSheet,
   TouchableOpacity,
+  ScrollView,
+  Alert,
+  StyleSheet,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {Colors} from '../../components/Theme';
 
 const AddressScreen = () => {
+  const navigation = useNavigation();
   const [addresses, setAddresses] = useState([]);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [newAddress, setNewAddress] = useState({
-    name: '',
-    address: '',
-    pincode: '',
-    city: '',
-    state: '',
-    phoneNumber: '',
-  });
+  const [defaultAddressIndex, setDefaultAddressIndex] = useState(null);
 
-  // Function to add address
-  const addAddress = () => {
-    if (addresses.length < 3) {
-      setAddresses([...addresses, newAddress]);
-      setNewAddress({
-        name: '',
-        address: '',
-        pincode: '',
-        city: '',
-        state: '',
-        phoneNumber: '',
-      });
-      setIsModalVisible(false);
-    } else {
-      alert('Only 3 addresses can be displayed');
-    }
+  // Load addresses from AsyncStorage when the screen is focused
+  useFocusEffect(
+    useCallback(() => {
+      const fetchAddresses = async () => {
+        const storedAddresses = await AsyncStorage.getItem('addresses');
+        if (storedAddresses) {
+          const parsedAddresses = JSON.parse(storedAddresses);
+          setAddresses(parsedAddresses);
+          // Set default address index if it exists
+          const defaultIndex = parsedAddresses.findIndex(
+            address => address.isDefault,
+          );
+          setDefaultAddressIndex(defaultIndex !== -1 ? defaultIndex : null);
+        }
+      };
+      fetchAddresses();
+    }, []),
+  );
+
+  // Function to handle adding a new address
+  const handleAddAddress = async newAddress => {
+    const updatedAddresses = [...addresses, newAddress];
+    setAddresses(updatedAddresses);
+    await AsyncStorage.setItem('addresses', JSON.stringify(updatedAddresses));
+  };
+
+  // Function to handle editing an existing address
+  const handleEditAddress = async (index, editedAddress) => {
+    const updatedAddresses = addresses.map((item, i) =>
+      i === index ? editedAddress : item,
+    );
+    setAddresses(updatedAddresses);
+    await AsyncStorage.setItem('addresses', JSON.stringify(updatedAddresses));
+  };
+
+  // Function to handle deleting an address
+  const handleDeleteAddress = index => {
+    Alert.alert(
+      'Delete Address',
+      'Are you sure you want to delete this address?',
+      [
+        {text: 'Cancel', style: 'cancel'},
+        {
+          text: 'Delete',
+          style: 'destructive',
+          onPress: async () => {
+            const updatedAddresses = addresses.filter((_, i) => i !== index);
+            setAddresses(updatedAddresses);
+            await AsyncStorage.setItem(
+              'addresses',
+              JSON.stringify(updatedAddresses),
+            );
+            // Reset default if the deleted address was the default
+            if (defaultAddressIndex === index) {
+              setDefaultAddressIndex(null);
+            }
+          },
+        },
+      ],
+      {cancelable: true},
+    );
+  };
+
+  // Function to handle setting an address as default
+  const handleSetDefault = async index => {
+    const updatedAddresses = addresses.map((address, i) => ({
+      ...address,
+      isDefault: i === index, // Mark the selected address as default
+    }));
+    setAddresses(updatedAddresses);
+    setDefaultAddressIndex(index);
+    await AsyncStorage.setItem('addresses', JSON.stringify(updatedAddresses));
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>My Addresses</Text>
+      {/* Header Section */}
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Text style={styles.backArrow}>←</Text>
+        </TouchableOpacity>
+        <Text style={styles.title}>My Addresses</Text>
+      </View>
 
       {/* Address List */}
-      <FlatList
-        data={addresses}
-        renderItem={({item}) => (
-          <View style={styles.addressItem}>
-            <Text>{item.name}</Text>
-            <Text>
-              {item.address}, {item.city}, {item.state}, {item.pincode}
-            </Text>
-            <Text>Phone: {item.phoneNumber}</Text>
-          </View>
-        )}
-        keyExtractor={(item, index) => index.toString()}
-      />
+      <ScrollView>
+        {addresses.length > 0 ? (
+          addresses.map((item, index) => (
+            <View
+              key={index}
+              style={[
+                styles.addressCard,
+                defaultAddressIndex === index ? styles.defaultCard : null,
+              ]}>
+              <Text style={styles.addressText}>{item.name}</Text>
+              <Text style={styles.addressText}>{item.address}</Text>
+              <Text style={styles.addressText}>{item.city}</Text>
+              <Text style={styles.addressText}>{item.state}</Text>
+              <Text style={styles.addressText}>{item.pincode}</Text>
+              <Text style={styles.addressText}>{item.phoneNumber}</Text>
 
-      {/* Add New Address Button */}
+              {/* Action Buttons in a single line */}
+              <View style={styles.buttonContainer}>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() =>
+                    navigation.navigate('AddAddress', {
+                      address: item,
+                      index,
+                      onSave: handleEditAddress,
+                    })
+                  }>
+                  <Text style={styles.buttonText}>Edit</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => handleDeleteAddress(index)}>
+                  <Text style={styles.buttonText}>Delete</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => handleSetDefault(index)}>
+                  <Text style={styles.buttonText}>Set as Default</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          ))
+        ) : (
+          <Text style={styles.noAddressesText}>No addresses added yet.</Text>
+        )}
+      </ScrollView>
+
       <TouchableOpacity
         style={styles.addButton}
-        onPress={() => setIsModalVisible(true)}>
-        <Text style={styles.addButtonText}>+ Add New Address</Text>
+        onPress={() =>
+          navigation.navigate('AddAddress', {onSave: handleAddAddress})
+        }>
+        <Text style={styles.addButtonText}> + Add New Address</Text>
       </TouchableOpacity>
-
-      {/* Modal for Adding Address */}
-      <Modal visible={isModalVisible} animationType="slide" transparent={true}>
-        <View style={styles.modalView}>
-          <Text style={styles.modalTitle}>Add New Address</Text>
-
-          <TextInput
-            style={styles.input}
-            placeholder="Name"
-            value={newAddress.name}
-            onChangeText={text => setNewAddress({...newAddress, name: text})}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Address"
-            value={newAddress.address}
-            onChangeText={text => setNewAddress({...newAddress, address: text})}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Pincode"
-            keyboardType="numeric"
-            value={newAddress.pincode}
-            onChangeText={text => setNewAddress({...newAddress, pincode: text})}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="City"
-            value={newAddress.city}
-            onChangeText={text => setNewAddress({...newAddress, city: text})}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="State"
-            value={newAddress.state}
-            onChangeText={text => setNewAddress({...newAddress, state: text})}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Phone Number"
-            keyboardType="numeric"
-            value={newAddress.phoneNumber}
-            onChangeText={text =>
-              setNewAddress({...newAddress, phoneNumber: text})
-            }
-          />
-
-          {/* Cancel and Save Buttons */}
-          <View style={styles.modalButtons}>
-            <Button title="Cancel" onPress={() => setIsModalVisible(false)} />
-            <Button title="Save" onPress={addAddress} />
-          </View>
-        </View>
-      </Modal>
     </View>
   );
 };
@@ -129,50 +165,72 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: '#fff',
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
   },
-  addressItem: {
-    padding: 10,
-    borderBottomColor: '#ccc',
-    borderBottomWidth: 1,
-    marginBottom: 10,
+  backArrow: {
+    fontSize: 24,
+    marginRight: 16,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  addressCard: {
+    backgroundColor: '#fff',
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 12,
+    elevation: 2,
+    marginLeft: 1,
+    marginRight: 1,
+  },
+  defaultCard: {
+    borderColor: Colors.primary,
+    borderWidth: 2,
+  },
+  addressText: {
+    fontSize: 16,
+    marginBottom: 4,
+  },
+  defaultText: {
+    color: Colors.primary,
+    fontWeight: 'bold',
+  },
+  button: {
+    backgroundColor: Colors.accent,
+    padding: 8,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginHorizontal: 4, // Optional: Space between buttons
+  },
+  buttonText: {
+    color: Colors.text,
+  },
+  noAddressesText: {
+    textAlign: 'center',
+    fontSize: 16,
+    color: Colors.text,
+    marginTop: 20,
   },
   addButton: {
-    backgroundColor: '#1e90ff',
-    padding: 15,
-    borderRadius: 10,
+    backgroundColor: Colors.accent,
+    padding: 12,
+    borderRadius: 8,
     alignItems: 'center',
+    marginTop: 16,
   },
   addButtonText: {
-    color: '#fff',
-    fontSize: 18,
-  },
-  modalView: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    padding: 20,
-  },
-  modalTitle: {
-    fontSize: 22,
+    color: Colors.text,
+    fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 20,
-    color: '#fff',
-    textAlign: 'center',
   },
-  input: {
-    backgroundColor: '#fff',
-    padding: 10,
-    marginVertical: 5,
-    borderRadius: 5,
-  },
-  modalButtons: {
+  buttonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: 20,
+    justifyContent: 'space-between',
+    marginTop: 8,
   },
 });
 

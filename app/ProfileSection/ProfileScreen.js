@@ -36,14 +36,14 @@ const ProfileScreen = () => {
       title: 'Address',
       subtitle: 'View or edit saved addresses',
       icon: 'map-marker-outline',
-      screen: 'AddressScreen',
+      screen: 'Address',
     },
     {
       id: 2,
       title: 'Orders',
       subtitle: 'Your order history',
       icon: 'cart-outline',
-      screen: 'OrderHistoryScreen',
+      screen: 'Order',
     },
     {
       id: 3,
@@ -78,21 +78,21 @@ const ProfileScreen = () => {
       title: 'FAQ',
       subtitle: 'Frequently Asked Questions',
       icon: 'comment-question-outline',
-      screen: 'FAQScreen',
+      screen: 'Faq',
     },
     {
       id: 8,
       title: 'Contact Us',
       subtitle: 'Chat with us',
       icon: 'phone-outline',
-      screen: 'ContactUsScreen',
+      screen: 'Contact',
     },
     {
       id: 9,
       title: 'Privacy Policy',
       subtitle: 'View Privacy Policy',
       icon: 'shield-lock-outline',
-      screen: 'PrivacyPolicyScreen',
+      screen: 'PrivacyPolicy',
     },
     {
       id: 10,
@@ -125,8 +125,7 @@ const ProfileScreen = () => {
       {/* Profile Section */}
       <TouchableOpacity
         style={styles.profileSection}
-        onPress={() => navigation.navigate('UserDetails')} // Navigate to UserDetails on click
-      >
+        onPress={() => navigation.navigate('UserDetails')}>
         <Icon
           name="account-outline"
           size={24}

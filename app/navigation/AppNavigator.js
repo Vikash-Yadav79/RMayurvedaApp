@@ -17,6 +17,12 @@ import ComboProductScreen from '../screens/ComboProductScreen';
 import ProfileScreen from '../ProfileSection/ProfileScreen';
 import UserDetailsScreen from '../ProfileSection/profiledetailsScreen/UserDetailsScreen';
 import AddressScreen from '../ProfileSection/profiledetailsScreen/AddressScreen';
+import AddAddressScreen from '../ProfileSection/profiledetailsScreen/AddAddressScreen';
+import OrderScreen from '../ProfileSection/profiledetailsScreen/OrderScreen';
+import PrivacyPolicyScreen from '../ProfileSection/profiledetailsScreen/PrivacyPolicyScreen';
+import FAQScreen from '../ProfileSection/profiledetailsScreen/FaqScreen';
+import ContactUsScreen from '../ProfileSection/profiledetailsScreen/ContactUsScreen';
+import OrderDetailsScreen from '../ProfileSection/profiledetailsScreen/OrderDetailsScreen';
 
 const Stack = createStackNavigator();
 
@@ -102,6 +108,36 @@ const AppNavigator = () => {
         name="Address"
         component={AddressScreen}
         options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="AddAddress"
+        component={AddAddressScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Order"
+        component={OrderScreen}
+        options={{headerShown: true}}
+      />
+      <Stack.Screen
+        name="PrivacyPolicy"
+        component={PrivacyPolicyScreen}
+        options={{headerShown: true}}
+      />
+      <Stack.Screen
+        name="Faq"
+        component={FAQScreen}
+        options={{headerShown: true}}
+      />
+      <Stack.Screen
+        name="Contact"
+        component={ContactUsScreen}
+        options={{headerShown: true}}
+      />
+      <Stack.Screen
+        name="OrderDetails"
+        component={OrderDetailsScreen}
+        options={{headerShown: true}}
       />
     </Stack.Navigator>
   );
