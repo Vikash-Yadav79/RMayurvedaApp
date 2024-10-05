@@ -23,6 +23,12 @@ import PrivacyPolicyScreen from '../ProfileSection/profiledetailsScreen/PrivacyP
 import FAQScreen from '../ProfileSection/profiledetailsScreen/FaqScreen';
 import ContactUsScreen from '../ProfileSection/profiledetailsScreen/ContactUsScreen';
 import OrderDetailsScreen from '../ProfileSection/profiledetailsScreen/OrderDetailsScreen';
+import RecentOrder from '../screens/RecentOrder';
+import WalletScreen from '../ProfileSection/profiledetailsScreen/WalletScreen';
+import ReferFriendScreen from '../ProfileSection/profiledetailsScreen/ReferFriendScreen';
+import PaymentMethodScreen from '../ProfileSection/profiledetailsScreen/PaymentMethodScreen';
+import NotificationScreen from '../ProfileSection/profiledetailsScreen/NotificationScreen';
+import TermsOfServiceScreen from '../ProfileSection/profiledetailsScreen/TermsOfServiceScreen';
 
 const Stack = createStackNavigator();
 
@@ -112,7 +118,7 @@ const AppNavigator = () => {
       <Stack.Screen
         name="AddAddress"
         component={AddAddressScreen}
-        options={{headerShown: false}}
+        options={{headerShown: true}}
       />
       <Stack.Screen
         name="Order"
@@ -138,6 +144,36 @@ const AppNavigator = () => {
         name="OrderDetails"
         component={OrderDetailsScreen}
         options={{headerShown: true}}
+      />
+      <Stack.Screen
+        name="Recent"
+        component={RecentOrder}
+        options={{headerShown: true}}
+      />
+      <Stack.Screen
+        name="Wallet"
+        component={WalletScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Refer"
+        component={ReferFriendScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Payment"
+        component={PaymentMethodScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Notification"
+        component={NotificationScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="TermsOfService"
+        component={TermsOfServiceScreen}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );

@@ -8,9 +8,12 @@ import {
   FontFamily,
   ComponentStyles,
 } from '../components/Theme';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {useCart} from '../context/CartContext'; // Adjust the path
 
 const FooterScreen = () => {
   const navigation = useNavigation();
+  const {cart} = useCart();
 
   return (
     <View style={styles.bottomNav}>
@@ -23,11 +26,25 @@ const FooterScreen = () => {
       </TouchableOpacity>
 
       {/* Cart Icon */}
-      <TouchableOpacity
+      {/* <TouchableOpacity
         // onPress={() => navigation.navigate('CartScreen')}
         style={styles.cartButtonContainer}>
         <View style={styles.cartButton}>
           <Ionicons name="cart-outline" size={24} color="#fff" />
+        </View>
+        <Text style={[styles.navText, styles.cartText]}>Cart</Text>
+      </TouchableOpacity> */}
+      <TouchableOpacity
+        style={styles.cartButtonContainer}
+        onPress={() => navigation.navigate('CartScreen')}>
+        <MaterialIcons
+          name="shopping-cart"
+          size={44}
+          color="#140F1F"
+          style={styles.icon}
+        />
+        <View style={styles.badge}>
+          <Text style={styles.badgeText}>{cart.length}</Text>
         </View>
         <Text style={[styles.navText, styles.cartText]}>Cart</Text>
       </TouchableOpacity>
@@ -78,11 +95,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  cartButton: {
+  icon: {
     width: 50, // Diameter of the circle
     height: 50, // Diameter of the circle
     borderRadius: 25, // Half of the width/height to make it a circle
-    backgroundColor: Colors.text, // Background color for the cart button
+    backgroundColor: Colors.accent, // Background color for the cart button
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 5, // Shadow effect for a modern look
@@ -90,13 +107,29 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowOffset: {width: 0, height: 2},
     shadowRadius: 5,
-    marginBottom: 4,
+    marginBottom: 5,
     marginLeft: 70,
   },
   cartText: {
     // marginTop: 40, // Adjust spacing for Cart text
     marginLeft: 60,
     marginBottom: 10,
+  },
+  badge: {
+    position: 'absolute',
+    right: -8,
+    top: -28,
+    backgroundColor: 'red',
+    borderRadius: 8,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    minWidth: 20,
+    alignItems: 'center',
+  },
+  badgeText: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: 'bold',
   },
 });
 

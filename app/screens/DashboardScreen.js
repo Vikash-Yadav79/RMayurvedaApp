@@ -15,15 +15,15 @@
 // import HeaderScreen from '../components/HeaderScreen';
 // import FooterScreen from '../components/FooterScreen';
 // import ComboProductScreen from './ComboProductScreen';
-// import {
-//   Colors,
-//   FontSizes,
-//   FontFamily,
-//   ComponentStyles,
-// } from '../components/Theme';
-
-// // Get screen width to make the banner responsive
+// import {ComponentStyles, Colors, FontSizes} from '../components/Theme';
 // const screenWidth = Dimensions.get('window').width;
+// import BestSellerRelatedProduct from '../screens/BestSellerRelatedProduct';
+// import RecentOrder from './RecentOrder';
+// import {
+//   BannerScreen1,
+//   BannerScreen2,
+//   BannerScreen3,
+// } from '../components/BannerScreen';
 
 // // Example banner data
 // const banners = [
@@ -103,6 +103,20 @@
 //         </View>
 
 //         <NewLaunchScreen />
+
+//         {/* Small Banner Section */}
+//         <View style={styles.smallBannerContainer}>
+//           <Image
+//             source={{
+//               uri: 'https://www.dhanvantri.co.in/wp-content/uploads/2023/10/banner-01.jpg',
+//             }}
+//             style={styles.smallBanner}
+//             resizeMode="cover"
+//           />
+//         </View>
+//         <Text style={styles.Popular}> Your Recent Order</Text>
+//         <RecentOrder />
+//         <BannerScreen2 />
 //       </ScrollView>
 //       <FooterScreen />
 //     </View>
@@ -132,9 +146,9 @@
 //     overflow: 'hidden',
 //     shadowColor: '#000',
 //     shadowOffset: {width: 0, height: 2},
-//     shadowOpacity: 0.2,
-//     shadowRadius: 5,
-//     elevation: 2,
+//     shadowOpacity: 0.1,
+//     shadowRadius: 3,
+//     elevation: 1,
 //   },
 //   bannerImage: {
 //     width: '100%',
@@ -148,15 +162,36 @@
 //     marginBottom: 10,
 //     fontWeight: 'bold',
 //   },
-
 //   productListHorizontal: {
 //     paddingHorizontal: 15,
+//   },
+
+//   // Styles for small banner section
+//   smallBannerContainer: {
+//     marginTop: -10,
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//     width: '100%',
+//     backgroundColor: '#fff',
+//     paddingVertical: 20,
+//   },
+//   smallBanner: {
+//     width: '90%',
+//     height: 100,
+//     borderRadius: 10,
+//     resizeMode: 'cover',
+//   },
+//   Popular: {
+//     fontSize: FontSizes.medium,
+//     fontWeight: 'bold',
+//     color: Colors.text,
+//     marginBottom: 5,
+//     marginLeft: 20,
 //   },
 // });
 
 // export default DashboardScreen;
 
-// Updated Code for DashboardScreen
 import React, {useEffect, useRef, useState} from 'react';
 import {
   View,
@@ -174,10 +209,15 @@ import NewLaunchScreen from './NewLaunchScreen';
 import HeaderScreen from '../components/HeaderScreen';
 import FooterScreen from '../components/FooterScreen';
 import ComboProductScreen from './ComboProductScreen';
-import {ComponentStyles} from '../components/Theme';
-import {ComboProductData} from '../product/FakeProductData';
-// Get screen width to make the banner responsive
+import {ComponentStyles, Colors, FontSizes} from '../components/Theme';
 const screenWidth = Dimensions.get('window').width;
+import BestSellerRelatedProduct from '../screens/BestSellerRelatedProduct';
+import RecentOrder from './RecentOrder';
+import {
+  BannerScreen1,
+  BannerScreen2,
+  BannerScreen3,
+} from '../components/BannerScreen';
 
 // Example banner data
 const banners = [
@@ -247,17 +287,40 @@ const DashboardScreen = () => {
             style={styles.bannerList}
           />
         </View>
+        {/* Button Section Below Banner */}
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('OrderDetails')}>
+            <Text style={styles.buttonText}>Your Orders</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('Order')}>
+            <Text style={styles.buttonText}>Your History</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('Recent')}>
+            <Text style={styles.buttonText}>Recent Orders</Text>
+          </TouchableOpacity>
+          {/* <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('AnotherScreen')}>
+            <Text style={styles.buttonText}>Another Option</Text>
+          </TouchableOpacity> */}
+        </ScrollView>
 
         {/* New Medicine View All Section */}
         <MedicineScreen />
-
         {/* Bestsellers section */}
         <View style={styles.bestsellerHeader}>
           <ComboProductScreen />
         </View>
-
         <NewLaunchScreen />
-
         {/* Small Banner Section */}
         <View style={styles.smallBannerContainer}>
           <Image
@@ -268,6 +331,9 @@ const DashboardScreen = () => {
             resizeMode="cover"
           />
         </View>
+        <Text style={styles.Popular}> Your Recent Order</Text>
+        <RecentOrder />
+        <BannerScreen2 />
       </ScrollView>
       <FooterScreen />
     </View>
@@ -323,14 +389,45 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    backgroundColor: '#fff', // Temporary background color for debugging
-    paddingVertical: 20, // Adjust padding to ensure proper spacing
+    backgroundColor: '#fff',
+    paddingVertical: 20,
   },
   smallBanner: {
     width: '90%',
     height: 100,
     borderRadius: 10,
     resizeMode: 'cover',
+  },
+  Popular: {
+    fontSize: FontSizes.medium,
+    fontWeight: 'bold',
+    color: Colors.text,
+    marginBottom: 5,
+    marginLeft: 20,
+  },
+
+  // Styles for button section
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginVertical: 10,
+  },
+  button: {
+    backgroundColor: Colors.accent,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    alignItems: 'center',
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 1},
+    shadowOpacity: 0.2,
+    shadowRadius: 1,
+    marginHorizontal: 6, // Added margin for spacing
+  },
+  buttonText: {
+    color: Colors.text,
+    fontWeight: 'bold',
   },
 });
 

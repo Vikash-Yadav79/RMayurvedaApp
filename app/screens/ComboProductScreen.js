@@ -6,24 +6,21 @@ import {
   Image,
   TouchableOpacity,
   Text,
-  Dimensions,
   ScrollView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {ComboProductData} from '../product/FakeProductData';
-
-// Get screen width to make the product card responsive
-
+import {useCart} from '../context/CartContext'; // Import useCart hook
 import {Colors, screenWidth, ComboCommonStyles} from '../components/Theme';
 
-const ProductCard = ({product, onPress}) => (
+const ProductCard = ({product, onPress, onAddToCart}) => (
   <TouchableOpacity style={styles.card} onPress={onPress}>
     <Image source={{uri: product.images[0]}} style={styles.productImage} />
     <Text style={styles.productName}>{product.name}</Text>
     <View style={styles.priceContainer}>
-      <Text style={styles.productPrice}>{product.price}</Text>
-      <Text style={styles.originalPrice}>{product.originalPrice}</Text>
-      <Text style={styles.discount}>{product.discount}</Text>
+      <Text style={styles.productPrice}>{`₹${product.price}`}</Text>
+      <Text style={styles.originalPrice}>{`₹${product.originalPrice}`}</Text>
+      <Text style={styles.discount}>{`${product.discount}% OFF`}</Text>
     </View>
     <View style={styles.ratingContainer}>
       <Text style={styles.starSymbol}>★</Text>
@@ -31,7 +28,7 @@ const ProductCard = ({product, onPress}) => (
       <Text
         style={styles.productReviews}>{` (${product.reviews} Reviews)`}</Text>
     </View>
-    <TouchableOpacity style={styles.addToCartButton}>
+    <TouchableOpacity style={styles.addToCartButton} onPress={onAddToCart}>
       <Text style={styles.addButtonText}>Add to Cart</Text>
     </TouchableOpacity>
   </TouchableOpacity>
@@ -39,9 +36,14 @@ const ProductCard = ({product, onPress}) => (
 
 const ComboProductScreen = () => {
   const navigation = useNavigation();
+  const {addToCart} = useCart();
 
   const handleProductPress = product => {
     navigation.navigate('ComboDetail', {product});
+  };
+
+  const handleAddToCart = product => {
+    addToCart(product);
   };
 
   return (
@@ -63,14 +65,15 @@ const ComboProductScreen = () => {
             <ProductCard
               product={item}
               onPress={() => handleProductPress(item)}
+              onAddToCart={() => handleAddToCart(item)}
             />
           )}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item.id.toString()}
           horizontal
           showsHorizontalScrollIndicator={false}
           pagingEnabled
           snapToAlignment="center"
-          snapToInterval={screenWidth * 0.8} // Snap to a fraction of the width
+          snapToInterval={screenWidth * 0.8}
           contentContainerStyle={styles.productList}
           style={styles.carousel}
         />
