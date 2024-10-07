@@ -8,8 +8,10 @@ import {
   Image,
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {useNavigation} from '@react-navigation/native';
 
 const OrderDetailsScreen = () => {
+  const navigation = useNavigation();
   return (
     <ScrollView style={styles.container}>
       {/* My Orders Title */}
@@ -95,7 +97,9 @@ const OrderDetailsScreen = () => {
       </View>
 
       {/* Continue Shopping */}
-      <TouchableOpacity style={styles.continueShoppingButton}>
+      <TouchableOpacity
+        style={styles.continueShoppingButton}
+        onPress={() => navigation.navigate('Dashboard')}>
         <Text style={styles.continueShoppingButtonText}>Continue Shopping</Text>
       </TouchableOpacity>
 
