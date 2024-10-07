@@ -24,6 +24,7 @@ import {
   BannerScreen2,
   BannerScreen3,
 } from '../components/BannerScreen';
+import TestimonialScreen from '../components/TestimonialScreen';
 
 // Example banner data
 const banners = [
@@ -140,6 +141,7 @@ const DashboardScreen = () => {
         <Text style={styles.Popular}> Your Recent Order</Text>
         <RecentOrder />
         <BannerScreen2 />
+        <TestimonialScreen />
       </ScrollView>
       <FooterScreen />
     </View>
